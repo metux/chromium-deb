@@ -65,6 +65,9 @@ defines+=is_debug=false \
          enable_wifi_display=false \
          enable_spellcheck=false \
          enable_exo_ozone_gamepad=false \
+         enable_remoting_host=false \
+         enable_remoting=false \
+         enable_me2me_host=false \
          goma_dir=\"\" \
          gold_path=\"\" \
          linux_use_bundled_binutils=false \
