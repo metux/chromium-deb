@@ -50,6 +50,7 @@ defines+=is_debug=false \
          enable_google_now=false \
          enable_hangout_services_extension=false \
          enable_iterator_debugging=false \
+         enable_vr=false \
          goma_dir=\"\" \
          gold_path=\"\" \
          linux_use_bundled_binutils=false \
