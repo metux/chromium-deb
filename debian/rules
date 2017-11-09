@@ -63,6 +63,7 @@ defines+=is_debug=false \
          enable_captive_portal_detection=false \
          enable_one_click_signin=false \
          enable_wifi_display=false \
+         enable_spellcheck=false \
          goma_dir=\"\" \
          gold_path=\"\" \
          linux_use_bundled_binutils=false \
