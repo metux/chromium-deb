@@ -64,6 +64,7 @@ defines+=is_debug=false \
          enable_one_click_signin=false \
          enable_wifi_display=false \
          enable_spellcheck=false \
+         enable_exo_ozone_gamepad=false \
          goma_dir=\"\" \
          gold_path=\"\" \
          linux_use_bundled_binutils=false \
