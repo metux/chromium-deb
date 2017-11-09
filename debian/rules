@@ -55,6 +55,7 @@ defines+=is_debug=false \
          enable_hotwording=false \
          enable_rlz=false \
          enable_background=false \
+         enable_mdns=false \
          goma_dir=\"\" \
          gold_path=\"\" \
          linux_use_bundled_binutils=false \
