@@ -60,6 +60,7 @@ defines+=is_debug=false \
          enable_app_list=false \
          enable_supervised_users=false \
          enable_service_discovery=false \
+         enable_captive_portal_detection=false \
          goma_dir=\"\" \
          gold_path=\"\" \
          linux_use_bundled_binutils=false \
