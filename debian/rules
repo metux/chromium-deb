@@ -58,7 +58,8 @@ defines+=use_gio=true \
          use_gold=true \
          use_pulseaudio=true \
          link_pulseaudio=true \
-         enable_widevine=true \
+         enable_widevine=false \
+         enable_pepper_cdms=false \
          use_jumbo_build=true \
          proprietary_codecs=true \
          ffmpeg_branding=\"Chrome\" \
