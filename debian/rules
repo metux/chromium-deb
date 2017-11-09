@@ -43,6 +43,7 @@ defines+=is_debug=false \
          use_custom_libcxx=false \
          use_gnome_keyring=false \
          use_dbus=false \
+         use_kerberos=false \
          use_gio=false \
          use_atk=false \
          use_glib=false \
