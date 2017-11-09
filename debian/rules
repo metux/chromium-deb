@@ -59,6 +59,7 @@ defines+=is_debug=false \
          enable_dice_support=false \
          enable_app_list=false \
          enable_supervised_users=false \
+         enable_service_discovery=false \
          goma_dir=\"\" \
          gold_path=\"\" \
          linux_use_bundled_binutils=false \
