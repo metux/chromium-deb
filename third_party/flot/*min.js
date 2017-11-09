@@ -1,0 +1,1 @@
+/usr/share/javascript/jquery-flot/*min.js
