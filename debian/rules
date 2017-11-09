@@ -45,6 +45,7 @@ defines+=is_debug=false \
          use_gio=false \
          use_atk=false \
          use_glib=false \
+         use_udev=false \
          rtc_libvpx_build_vp9=false \
          treat_warnings_as_errors=false \
          enable_nacl=false \
