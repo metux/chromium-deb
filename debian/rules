@@ -52,6 +52,7 @@ defines+=is_debug=false \
          enable_iterator_debugging=false \
          enable_vr=false \
          enable_offline_pages=false \
+         enable_hotwording=false \
          goma_dir=\"\" \
          gold_path=\"\" \
          linux_use_bundled_binutils=false \
