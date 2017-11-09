@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# run me after debian source setup stage ...
+
+THIRDPARTY_A="libevent zlib re2 snappy opus libxslt libxml yasm libwebp libvpx libpng
+harfbuzz-ng freetype libpng libjpeg libdrm flot"
+
+for i in $THIRDPARTY_A ; do
+    git add third_party/$i && git commit -m "drop bundled thirdparty: $i (deb)"
+done
+
+THIRDPARTY_B="libjpeg_turbo"
+
+for i in $THIRDPARTY_B ; do
+    git add build/secondary/third_party/$i && git commit -m "drop bundled (2) thirdparty: $i (deb)"
+done
