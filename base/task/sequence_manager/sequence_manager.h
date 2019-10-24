@@ -61,6 +61,7 @@ class SequenceManager {
   // MessageLoop and whether randomised sampling should be enabled.
   struct Settings {
     Settings() = default;
+    Settings(bool randomise):randomised_sampling_enabled(randomise) {}
     // In the future MessagePump (which is move-only) will also be a setting,
     // so we are making Settings move-only in preparation.
     Settings(Settings&& move_from) noexcept = default;
