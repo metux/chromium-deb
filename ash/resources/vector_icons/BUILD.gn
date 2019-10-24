@@ -139,7 +139,6 @@ aggregate_vector_icons("ash_vector_icons") {
     "system_menu_cast_message.icon",
     "system_menu_child_user.icon",
     "system_menu_computer.icon",
-    "system_menu_gamepad.icon",
     "system_menu_guest.icon",
     "system_menu_hdmi.icon",
     "system_menu_headset.icon",

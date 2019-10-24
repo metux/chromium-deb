@@ -4,8 +4,6 @@
 
 #include "device/vr/oculus/oculus_device_provider.h"
 
-#include "device/gamepad/gamepad_data_fetcher_manager.h"
-#include "device/vr/isolated_gamepad_data_fetcher.h"
 #include "device/vr/oculus/oculus_device.h"
 #include "third_party/libovr/src/Include/OVR_CAPI.h"
 
@@ -14,10 +12,6 @@ namespace device {
 OculusVRDeviceProvider::OculusVRDeviceProvider() : initialized_(false) {}
 
 OculusVRDeviceProvider::~OculusVRDeviceProvider() {
-  // Removing gamepad factory corresponding to VRDeviceId::OCULUS_DEVICE_ID,
-  // added during initialization.
-  device::GamepadDataFetcherManager::GetInstance()->RemoveSourceFactory(
-      device::GAMEPAD_SOURCE_OCULUS);
 }
 
 void OculusVRDeviceProvider::Initialize(
@@ -32,13 +26,6 @@ void OculusVRDeviceProvider::Initialize(
     add_device_callback.Run(device::mojom::XRDeviceId::OCULUS_DEVICE_ID,
                             device_->GetVRDisplayInfo(),
                             device_->BindXRRuntimePtr());
-
-    // Removed in our destructor, as VRDeviceId::OCULUS_DEVICE_ID corresponds to
-    // device::GAMEPAD_SOURCE_OCULUS.
-    GamepadDataFetcherManager::GetInstance()->AddFactory(
-        new IsolatedGamepadDataFetcher::Factory(
-            device::mojom::XRDeviceId::OCULUS_DEVICE_ID,
-            device_->BindGamepadFactory()));
   }
   initialized_ = true;
   std::move(initialization_complete).Run();

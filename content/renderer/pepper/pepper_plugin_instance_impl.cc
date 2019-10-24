@@ -58,12 +58,10 @@
 #include "content/renderer/render_widget.h"
 #include "content/renderer/render_widget_fullscreen_pepper.h"
 #include "content/renderer/sad_plugin.h"
-#include "device/gamepad/public/cpp/gamepads.h"
 #include "ppapi/c/dev/ppp_text_input_dev.h"
 #include "ppapi/c/pp_rect.h"
 #include "ppapi/c/ppb_audio_config.h"
 #include "ppapi/c/ppb_core.h"
-#include "ppapi/c/ppb_gamepad.h"
 #include "ppapi/c/ppp_input_event.h"
 #include "ppapi/c/ppp_instance.h"
 #include "ppapi/c/ppp_messaging.h"
@@ -78,7 +76,6 @@
 #include "ppapi/proxy/uma_private_resource.h"
 #include "ppapi/proxy/url_loader_resource.h"
 #include "ppapi/shared_impl/ppapi_permissions.h"
-#include "ppapi/shared_impl/ppb_gamepad_shared.h"
 #include "ppapi/shared_impl/ppb_input_event_shared.h"
 #include "ppapi/shared_impl/ppb_url_util_shared.h"
 #include "ppapi/shared_impl/ppb_view_shared.h"
@@ -161,7 +158,6 @@ using ppapi::StringVar;
 using ppapi::TrackedCallback;
 using ppapi::thunk::EnterResourceNoLock;
 using ppapi::thunk::PPB_Buffer_API;
-using ppapi::thunk::PPB_Gamepad_API;
 using ppapi::thunk::PPB_Graphics2D_API;
 using ppapi::thunk::PPB_Graphics3D_API;
 using ppapi::thunk::PPB_ImageData_API;
@@ -475,22 +471,6 @@ void PepperPluginInstanceImpl::ExternalDocumentLoader::DidFail(
   error_ = std::make_unique<WebURLError>(error);
 }
 
-PepperPluginInstanceImpl::GamepadImpl::GamepadImpl()
-    : Resource(ppapi::Resource::Untracked()) {}
-
-PepperPluginInstanceImpl::GamepadImpl::~GamepadImpl() {}
-
-PPB_Gamepad_API* PepperPluginInstanceImpl::GamepadImpl::AsPPB_Gamepad_API() {
-  return this;
-}
-
-void PepperPluginInstanceImpl::GamepadImpl::Sample(
-    PP_Instance instance,
-    PP_GamepadsSampleData* data) {
-  // This gamepad singleton resource method should not be called
-  NOTREACHED();
-}
-
 PepperPluginInstanceImpl::PepperPluginInstanceImpl(
     RenderFrameImpl* render_frame,
     PluginModule* module,
@@ -527,7 +507,6 @@ PepperPluginInstanceImpl::PepperPluginInstanceImpl(
       checked_for_plugin_input_event_interface_(false),
       checked_for_plugin_pdf_interface_(false),
       metafile_(nullptr),
-      gamepad_impl_(new GamepadImpl()),
       uma_private_impl_(nullptr),
       plugin_print_interface_(nullptr),
       always_on_top_(false),
@@ -2699,8 +2678,6 @@ ppapi::Resource* PepperPluginInstanceImpl::GetSingletonResource(
     case ppapi::TRUETYPE_FONT_SINGLETON_ID:
       NOTIMPLEMENTED();
       return nullptr;
-    case ppapi::GAMEPAD_SINGLETON_ID:
-      return gamepad_impl_.get();
     case ppapi::UMA_SINGLETON_ID: {
       if (!uma_private_impl_.get()) {
         RendererPpapiHostImpl* host_impl = module_->renderer_ppapi_host();

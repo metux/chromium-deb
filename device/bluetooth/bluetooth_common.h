@@ -37,7 +37,6 @@ enum class BluetoothDeviceType {
   VIDEO,
   PERIPHERAL,
   JOYSTICK,
-  GAMEPAD,
   KEYBOARD,
   MOUSE,
   TABLET,

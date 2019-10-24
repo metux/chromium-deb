@@ -148,9 +148,6 @@ This file contains the strings for bluetooth.
       <message name="IDS_BLUETOOTH_DEVICE_JOYSTICK" desc="Text to identify Bluetooth devices of the joystick class.">
       Joystick (<ph name="ADDRESS">$1<ex>12:34:56:78:9A:BC</ex></ph>)
       </message>
-      <message name="IDS_BLUETOOTH_DEVICE_GAMEPAD" desc="Text to identify Bluetooth devices of the gamepad class.">
-      Gamepad (<ph name="ADDRESS">$1<ex>12:34:56:78:9A:BC</ex></ph>)
-      </message>
       <message name="IDS_BLUETOOTH_DEVICE_KEYBOARD" desc="Text to identify Bluetooth devices of the keyboard class.">
       Keyboard (<ph name="ADDRESS">$1<ex>12:34:56:78:9A:BC</ex></ph>)
       </message>

@@ -74,7 +74,6 @@ _TEST_APK_LIBS = [
   (0x092ee000, 0x092f16e0, 0x000036e0, 'libdevice_base.cr.so'),
   (0x092f2000, 0x092fe8d8, 0x0000c8d8, 'libdevice_event_log.cr.so'),
   (0x092ff000, 0x093026a4, 0x000036a4, 'libdevice_features.cr.so'),
-  (0x09303000, 0x093f1220, 0x000ee220, 'libdevice_gamepad.cr.so'),
   (0x093f2000, 0x09437f54, 0x00045f54, 'libdevice_vr_mojo_bindings.cr.so'),
   (0x09438000, 0x0954c168, 0x00114168, 'libdevice_vr_mojo_bindings_blink.cr.so'),
   (0x0954d000, 0x0955d720, 0x00010720, 'libdevice_vr_mojo_bindings_shared.cr.so'),

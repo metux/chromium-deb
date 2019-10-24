@@ -24,7 +24,6 @@
 #include "ppapi/proxy/flash_file_resource.h"
 #include "ppapi/proxy/flash_fullscreen_resource.h"
 #include "ppapi/proxy/flash_resource.h"
-#include "ppapi/proxy/gamepad_resource.h"
 #include "ppapi/proxy/host_dispatcher.h"
 #include "ppapi/proxy/isolated_file_system_private_resource.h"
 #include "ppapi/proxy/message_handler.h"
@@ -357,9 +356,6 @@ Resource* PPB_Instance_Proxy::GetSingletonResource(PP_Instance instance,
   switch (id) {
     case BROKER_SINGLETON_ID:
       new_singleton = new BrokerResource(connection, instance);
-      break;
-    case GAMEPAD_SINGLETON_ID:
-      new_singleton = new GamepadResource(connection, instance);
       break;
     case ISOLATED_FILESYSTEM_SINGLETON_ID:
       new_singleton =

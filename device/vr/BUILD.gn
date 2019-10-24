@@ -48,9 +48,6 @@ if (enable_vr) {
 
     if (enable_gvr_services) {
       sources += [
-        "android/gvr/cardboard_gamepad_data_fetcher.cc",
-        "android/gvr/cardboard_gamepad_data_fetcher.h",
-        "android/gvr/cardboard_gamepad_data_provider.h",
         "android/gvr/gvr_delegate.cc",
         "android/gvr/gvr_delegate.h",
         "android/gvr/gvr_delegate_provider.h",
@@ -60,9 +57,6 @@ if (enable_vr) {
         "android/gvr/gvr_device.h",
         "android/gvr/gvr_device_provider.cc",
         "android/gvr/gvr_device_provider.h",
-        "android/gvr/gvr_gamepad_data_fetcher.cc",
-        "android/gvr/gvr_gamepad_data_fetcher.h",
-        "android/gvr/gvr_gamepad_data_provider.h",
         "android/gvr/vr_module_delegate.cc",
         "android/gvr/vr_module_delegate.h",
       ]
@@ -76,8 +70,6 @@ if (enable_vr) {
 
       deps += [
         ":jni_headers",
-        "//device/gamepad",
-        "//device/gamepad/public/cpp:shared_with_blink",
         "//third_party/blink/public:blink_headers",
         "//third_party/gvr-android-sdk:gvr_shim",
       ]
@@ -87,8 +79,6 @@ if (enable_vr) {
 
     if (enable_openvr) {
       deps += [
-        "//device/gamepad",
-        "//device/gamepad/public/cpp:shared_with_blink",
         "//third_party/openvr:openvr",
       ]
       sources += [
@@ -98,8 +88,6 @@ if (enable_vr) {
         "openvr/openvr_device.h",
         "openvr/openvr_device_provider.cc",
         "openvr/openvr_device_provider.h",
-        "openvr/openvr_gamepad_helper.cc",
-        "openvr/openvr_gamepad_helper.h",
         "openvr/openvr_render_loop.cc",
         "openvr/openvr_render_loop.h",
         "openvr/openvr_type_converters.cc",
@@ -122,8 +110,6 @@ if (enable_vr) {
       ]
 
       sources += [
-        "isolated_gamepad_data_fetcher.cc",
-        "isolated_gamepad_data_fetcher.h",
         "windows/d3d11_texture_helper.cc",
         "windows/d3d11_texture_helper.h",
         "windows/flip_pixel_shader.h",
@@ -133,8 +119,6 @@ if (enable_vr) {
 
     if (enable_oculus_vr) {
       deps += [
-        "//device/gamepad",
-        "//device/gamepad/public/cpp:shared_with_blink",
         "//third_party/libovr",
       ]
 
@@ -143,8 +127,6 @@ if (enable_vr) {
         "oculus/oculus_device.h",
         "oculus/oculus_device_provider.cc",
         "oculus/oculus_device_provider.h",
-        "oculus/oculus_gamepad_helper.cc",
-        "oculus/oculus_gamepad_helper.h",
         "oculus/oculus_render_loop.cc",
         "oculus/oculus_render_loop.h",
         "oculus/oculus_type_converters.cc",

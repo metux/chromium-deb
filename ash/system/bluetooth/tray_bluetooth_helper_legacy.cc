@@ -102,9 +102,6 @@ BluetoothDeviceInfoPtr GetBluetoothDeviceInfo(device::BluetoothDevice* device) {
     case device::BluetoothDeviceType::JOYSTICK:
       info->device_type = BluetoothDeviceInfo::DeviceType::kJoystick;
       break;
-    case device::BluetoothDeviceType::GAMEPAD:
-      info->device_type = BluetoothDeviceInfo::DeviceType::kGamepad;
-      break;
     case device::BluetoothDeviceType::KEYBOARD:
       info->device_type = BluetoothDeviceInfo::DeviceType::kKeyboard;
       break;

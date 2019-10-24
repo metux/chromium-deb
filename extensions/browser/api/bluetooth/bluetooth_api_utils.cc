@@ -66,9 +66,6 @@ bool ConvertDeviceTypeToApi(const BluetoothDeviceType& input,
     case BluetoothDeviceType::JOYSTICK:
       *output = bluetooth::DEVICE_TYPE_JOYSTICK;
       return true;
-    case BluetoothDeviceType::GAMEPAD:
-      *output = bluetooth::DEVICE_TYPE_GAMEPAD;
-      return true;
     case BluetoothDeviceType::KEYBOARD:
       *output = bluetooth::DEVICE_TYPE_KEYBOARD;
       return true;

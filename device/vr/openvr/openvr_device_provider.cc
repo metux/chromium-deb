@@ -5,8 +5,6 @@
 #include "device/vr/openvr/openvr_device_provider.h"
 
 #include "base/metrics/histogram_macros.h"
-#include "device/gamepad/gamepad_data_fetcher_manager.h"
-#include "device/vr/isolated_gamepad_data_fetcher.h"
 #include "device/vr/openvr/openvr_api_wrapper.h"
 #include "device/vr/openvr/openvr_device.h"
 #include "device/vr/openvr/test/test_hook.h"
@@ -25,9 +23,6 @@ void OpenVRDeviceProvider::RecordRuntimeAvailability() {
 OpenVRDeviceProvider::OpenVRDeviceProvider() = default;
 
 OpenVRDeviceProvider::~OpenVRDeviceProvider() {
-  device::GamepadDataFetcherManager::GetInstance()->RemoveSourceFactory(
-      device::GAMEPAD_SOURCE_OPENVR);
-
   if (device_) {
     device_->Shutdown();
     device_ = nullptr;
@@ -61,14 +56,7 @@ void OpenVRDeviceProvider::CreateDevice() {
     return;
 
   device_ = std::make_unique<OpenVRDevice>();
-  if (device_->IsAvailable()) {
-    GamepadDataFetcherManager::GetInstance()->AddFactory(
-        new IsolatedGamepadDataFetcher::Factory(
-            device::mojom::XRDeviceId::OPENVR_DEVICE_ID,
-            device_->BindGamepadFactory()));
-  } else {
-    device_ = nullptr;
-  }
+  device_ = nullptr;
 }
 
 bool OpenVRDeviceProvider::Initialized() {

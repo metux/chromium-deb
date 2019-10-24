@@ -64,9 +64,6 @@ base::string16 GetBluetoothDeviceNameForDisplay(
     case DeviceType::kJoystick:
       return l10n_util::GetStringFUTF16(IDS_BLUETOOTH_DEVICE_JOYSTICK,
                                         address_utf16);
-    case DeviceType::kGamepad:
-      return l10n_util::GetStringFUTF16(IDS_BLUETOOTH_DEVICE_GAMEPAD,
-                                        address_utf16);
     case DeviceType::kKeyboard:
       return l10n_util::GetStringFUTF16(IDS_BLUETOOTH_DEVICE_KEYBOARD,
                                         address_utf16);

@@ -62,8 +62,6 @@ PairedDevice::Type AsBluetoothDeviceType(
       return PairedDevice::DEVICE_PERIPHERAL;
     case device::BluetoothDeviceType::JOYSTICK:
       return PairedDevice::DEVICE_JOYSTICK;
-    case device::BluetoothDeviceType::GAMEPAD:
-      return PairedDevice::DEVICE_GAMEPAD;
     case device::BluetoothDeviceType::KEYBOARD:
       return PairedDevice::DEVICE_KEYBOARD;
     case device::BluetoothDeviceType::MOUSE:

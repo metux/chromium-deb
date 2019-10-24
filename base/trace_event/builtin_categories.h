@@ -70,7 +70,6 @@
   X("file_system_provider")                                              \
   X("font_loader")                                                       \
   X("font_service")                                                      \
-  X("GAMEPAD")                                                           \
   X("gpu")                                                               \
   X("gpu.capture")                                                       \
   X("headless")                                                          \

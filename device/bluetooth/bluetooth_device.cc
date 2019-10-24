@@ -129,9 +129,6 @@ base::string16 BluetoothDevice::GetAddressWithLocalizedDeviceTypeName() const {
     case BluetoothDeviceType::JOYSTICK:
       return l10n_util::GetStringFUTF16(IDS_BLUETOOTH_DEVICE_JOYSTICK,
                                         address_utf16);
-    case BluetoothDeviceType::GAMEPAD:
-      return l10n_util::GetStringFUTF16(IDS_BLUETOOTH_DEVICE_GAMEPAD,
-                                        address_utf16);
     case BluetoothDeviceType::KEYBOARD:
       return l10n_util::GetStringFUTF16(IDS_BLUETOOTH_DEVICE_KEYBOARD,
                                         address_utf16);
@@ -198,9 +195,6 @@ BluetoothDeviceType BluetoothDevice::GetDeviceType() const {
             case 0x01:
               // Joystick.
               return BluetoothDeviceType::JOYSTICK;
-            case 0x02:
-              // Gamepad.
-              return BluetoothDeviceType::GAMEPAD;
             default:
               return BluetoothDeviceType::PERIPHERAL;
           }
@@ -250,9 +244,6 @@ BluetoothDeviceType BluetoothDevice::GetDeviceType() const {
         case 0x03:
           // Joystick
           return BluetoothDeviceType::JOYSTICK;
-        case 0x04:
-          // Gamepad
-          return BluetoothDeviceType::GAMEPAD;
         case 0x05:
           // Digitizer tablet
           return BluetoothDeviceType::TABLET;
