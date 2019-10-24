@@ -47,7 +47,7 @@ const int kGpuTimeout = 30000;
 // hangs at context creation during startup. See https://crbug.com/918490.
 const int kGpuTimeout = 15000;
 #else
-const int kGpuTimeout = 10000;
+const int kGpuTimeout = 20000;
 #endif
 
 #if defined(USE_X11)
