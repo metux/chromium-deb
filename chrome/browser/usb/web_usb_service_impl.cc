@@ -141,7 +141,7 @@ void WebUsbServiceImpl::OnPermissionRevoked(const GURL& requesting_origin,
     if (!device_info)
       return true;
 
-    return !HasDevicePermission(*device_info);
+    return !this->HasDevicePermission(*device_info);
   });
 }
 
