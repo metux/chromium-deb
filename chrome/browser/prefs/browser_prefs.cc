@@ -61,7 +61,6 @@
 #include "chrome/browser/ssl/chrome_ssl_host_state_delegate.h"
 #include "chrome/browser/ssl/ssl_config_service_manager.h"
 #include "chrome/browser/task_manager/task_manager_interface.h"
-#include "chrome/browser/tracing/chrome_tracing_delegate.h"
 #include "chrome/browser/ui/blocked_content/safe_browsing_triggered_popup_blocker.h"
 #include "chrome/browser/ui/browser_ui_prefs.h"
 #include "chrome/browser/ui/navigation_correction_tab_observer.h"
@@ -429,7 +428,6 @@ void RegisterLocalState(PrefRegistrySimple* registry) {
   BrowserProcessImpl::RegisterPrefs(registry);
   ChromeContentBrowserClient::RegisterLocalStatePrefs(registry);
   ChromeMetricsServiceClient::RegisterPrefs(registry);
-  ChromeTracingDelegate::RegisterPrefs(registry);
   component_updater::RegisterPrefs(registry);
   ExternalProtocolHandler::RegisterPrefs(registry);
   flags_ui::PrefServiceFlagsStorage::RegisterPrefs(registry);

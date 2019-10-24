@@ -19,7 +19,6 @@
 #include "services/resource_coordinator/manifest.h"
 #include "services/service_manager/public/cpp/manifest_builder.h"
 #include "services/shape_detection/manifest.h"
-#include "services/tracing/manifest.h"
 #include "services/video_capture/manifest.h"
 #include "services/viz/manifest.h"
 
@@ -64,7 +63,6 @@ const service_manager::Manifest& GetContentPackagedServicesManifest() {
         .PackageService(network::GetManifest())
         .PackageService(resource_coordinator::GetManifest())
         .PackageService(shape_detection::GetManifest())
-        .PackageService(tracing::GetManifest())
         .PackageService(video_capture::GetManifest())
         .PackageService(viz::GetManifest())
 #if defined(OS_LINUX)

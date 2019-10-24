@@ -133,7 +133,6 @@
 #include "chrome/browser/subresource_filter/chrome_subresource_filter_client.h"
 #include "chrome/browser/sync_file_system/local/sync_file_system_backend.h"
 #include "chrome/browser/tab_contents/tab_util.h"
-#include "chrome/browser/tracing/chrome_tracing_delegate.h"
 #include "chrome/browser/translate/translate_service.h"
 #include "chrome/browser/ui/blocked_content/blocked_window_params.h"
 #include "chrome/browser/ui/blocked_content/popup_blocker.h"
@@ -4330,7 +4329,7 @@ ChromeContentBrowserClient::GetDevToolsManagerDelegate() {
 }
 
 content::TracingDelegate* ChromeContentBrowserClient::GetTracingDelegate() {
-  return new ChromeTracingDelegate();
+  return nullptr;
 }
 
 bool ChromeContentBrowserClient::IsPluginAllowedToCallRequestOSFileHandle(

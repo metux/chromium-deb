@@ -156,14 +156,9 @@ void TracingControllerImpl::AddAgents() {
 }
 
 void TracingControllerImpl::ConnectToServiceIfNeeded() {
-  if (!coordinator_) {
-    ServiceManagerConnection::GetForProcess()->GetConnector()->BindInterface(
-        tracing::mojom::kServiceName, &coordinator_);
-  }
 }
 
 void TracingControllerImpl::DisconnectFromService() {
-  coordinator_ = nullptr;
 }
 
 // Can be called on any thread.
@@ -335,7 +330,6 @@ bool TracingControllerImpl::StartTracing(
 
   start_tracing_done_ = std::move(callback);
   ConnectToServiceIfNeeded();
-  coordinator_->StartTracing(trace_config.ToString());
 
   if (start_tracing_done_ &&
       (base::trace_event::TraceLog::GetInstance()->IsEnabled() ||
@@ -384,16 +378,8 @@ bool TracingControllerImpl::StopTracing(
       new mojo::DataPipeDrainer(this, std::move(data_pipe.consumer_handle)));
   if (agent_label.empty()) {
     // Stop and flush all agents.
-    coordinator_->StopAndFlush(
-        std::move(data_pipe.producer_handle),
-        base::BindRepeating(&TracingControllerImpl::OnMetadataAvailable,
-                            base::Unretained(this)));
   } else {
     // Stop all and flush a particular agent.
-    coordinator_->StopAndFlushAgent(
-        std::move(data_pipe.producer_handle), agent_label,
-        base::BindRepeating(&TracingControllerImpl::OnMetadataAvailable,
-                            base::Unretained(this)));
   }
   // TODO(chiniforooshan): Is the return value used anywhere?
   return true;
@@ -404,12 +390,6 @@ bool TracingControllerImpl::GetTraceBufferUsage(
   DCHECK_CURRENTLY_ON(BrowserThread::UI);
 
   ConnectToServiceIfNeeded();
-  coordinator_->RequestBufferUsage(base::BindOnce(
-      [](GetTraceBufferUsageCallback callback, bool success, float percent_full,
-         uint32_t approximate_count) {
-        std::move(callback).Run(percent_full, approximate_count);
-      },
-      std::move(callback)));
   // TODO(chiniforooshan): The actual success value should be sent by the
   // callback asynchronously.
   return true;

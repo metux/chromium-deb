@@ -13,7 +13,6 @@
 #include "content/browser/net/network_errors_listing_ui.h"
 #include "content/browser/process_internals/process_internals_ui.h"
 #include "content/browser/service_worker/service_worker_internals_ui.h"
-#include "content/browser/tracing/tracing_ui.h"
 #include "content/browser/webrtc/webrtc_internals_ui.h"
 #include "content/public/browser/storage_partition.h"
 #include "content/public/browser/web_contents.h"
@@ -76,7 +75,7 @@ ContentWebUIControllerFactory::CreateWebUIControllerForURL(
     return std::make_unique<ServiceWorkerInternalsUI>(web_ui);
   if (url.host_piece() == kChromeUINetworkErrorsListingHost)
     return std::make_unique<NetworkErrorsListingUI>(web_ui);
-#if !defined(OS_ANDROID)
+#if 0
   if (url.host_piece() == kChromeUITracingHost)
     return std::make_unique<TracingUI>(web_ui);
 #endif

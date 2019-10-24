@@ -34,7 +34,6 @@ class CONTENT_EXPORT BackgroundTracingConfig {
   virtual void IntoDict(base::DictionaryValue* dict) const = 0;
 
  private:
-  friend class BackgroundTracingConfigImpl;
   explicit BackgroundTracingConfig(TracingMode tracing_mode);
 
   const TracingMode tracing_mode_;

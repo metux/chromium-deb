@@ -10,7 +10,6 @@
 #include "base/single_thread_task_runner.h"
 #include "base/threading/thread_task_runner_handle.h"
 #include "components/feedback/feedback_util.h"
-#include "content/public/browser/tracing_controller.h"
 
 namespace {
 
@@ -43,10 +42,6 @@ int TracingManager::RequestTrace() {
 
   current_trace_id_ = g_next_trace_id;
   ++g_next_trace_id;
-  content::TracingController::GetInstance()->StopTracing(
-      content::TracingController::CreateStringEndpoint(
-          base::Bind(&TracingManager::OnTraceDataCollected,
-                     weak_ptr_factory_.GetWeakPtr())));
   return current_trace_id_;
 }
 
@@ -89,9 +84,6 @@ void TracingManager::DiscardTraceData(int id) {
 }
 
 void TracingManager::StartTracing() {
-  content::TracingController::GetInstance()->StartTracing(
-      base::trace_event::TraceConfig(),
-      content::TracingController::StartTracingDoneCallback());
 }
 
 void TracingManager::OnTraceDataCollected(

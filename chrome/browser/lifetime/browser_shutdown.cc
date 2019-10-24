@@ -372,9 +372,6 @@ void StartShutdownTracing() {
   if (command_line.HasSwitch(switches::kTraceShutdown)) {
     base::trace_event::TraceConfig trace_config(
         command_line.GetSwitchValueASCII(switches::kTraceShutdown), "");
-    content::TracingController::GetInstance()->StartTracing(
-        trace_config,
-        content::TracingController::StartTracingDoneCallback());
   }
   TRACE_EVENT0("shutdown", "StartShutdownTracing");
 }

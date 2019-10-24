@@ -12,7 +12,6 @@
 #include "components/services/heap_profiling/public/cpp/settings.h"
 #include "content/public/browser/browser_task_traits.h"
 #include "content/public/browser/browser_thread.h"
-#include "content/public/browser/tracing_controller.h"
 #include "content/public/common/service_manager_connection.h"
 #include "services/resource_coordinator/public/cpp/memory_instrumentation/memory_instrumentation.h"
 #include "services/service_manager/public/cpp/connector.h"
@@ -123,6 +122,9 @@ void Supervisor::RequestTraceWithHeapDump(TraceFinishedCallback callback,
   DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
   DCHECK(HasStarted());
 
+  return;
+
+  /*
   if (content::TracingController::GetInstance()->IsTracing()) {
     DLOG(ERROR) << "Requesting heap dump when tracing has already started.";
     base::ThreadTaskRunnerHandle::Get()->PostTask(
@@ -173,6 +175,7 @@ void Supervisor::RequestTraceWithHeapDump(TraceFinishedCallback callback,
       GetBackgroundTracingConfig(anonymize),
       base::AdaptCallbackForRepeating(std::move(trigger_memory_dump_callback)));
   DCHECK(result);
+  */
 }
 
 void Supervisor::StartServiceOnIOThread(

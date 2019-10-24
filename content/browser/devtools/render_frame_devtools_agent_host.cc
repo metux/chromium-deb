@@ -35,7 +35,6 @@
 #include "content/browser/devtools/protocol/service_worker_handler.h"
 #include "content/browser/devtools/protocol/storage_handler.h"
 #include "content/browser/devtools/protocol/target_handler.h"
-#include "content/browser/devtools/protocol/tracing_handler.h"
 #include "content/browser/frame_host/navigation_handle_impl.h"
 #include "content/browser/frame_host/navigation_request.h"
 #include "content/browser/frame_host/render_frame_host_impl.h"
@@ -302,10 +301,6 @@ bool RenderFrameDevToolsAgentHost::AttachSession(DevToolsSession* session) {
   session->AddHandler(base::WrapUnique(new protocol::PageHandler(
       emulation_handler, session->client()->MayAffectLocalFiles())));
   session->AddHandler(base::WrapUnique(new protocol::SecurityHandler()));
-  if (!frame_tree_node_ || !frame_tree_node_->parent()) {
-    session->AddHandler(base::WrapUnique(
-        new protocol::TracingHandler(frame_tree_node_, GetIOContext())));
-  }
 
   if (sessions().empty()) {
     bool use_video_capture_api = true;
@@ -366,8 +361,6 @@ void RenderFrameDevToolsAgentHost::ReadyToCommitNavigation(
     NavigationHandle* navigation_handle) {
   NavigationHandleImpl* handle =
       static_cast<NavigationHandleImpl*>(navigation_handle);
-  for (auto* tracing : protocol::TracingHandler::ForAgentHost(this))
-    tracing->ReadyToCommitNavigation(handle);
 
   if (handle->frame_tree_node() != frame_tree_node_) {
     if (ShouldForceCreation() && handle->GetRenderFrameHost() &&
@@ -474,8 +467,6 @@ void RenderFrameDevToolsAgentHost::RenderFrameHostChanged(
 
 void RenderFrameDevToolsAgentHost::FrameDeleted(RenderFrameHost* rfh) {
   RenderFrameHostImpl* host = static_cast<RenderFrameHostImpl*>(rfh);
-  for (auto* tracing : protocol::TracingHandler::ForAgentHost(this))
-    tracing->FrameDeleted(host);
   if (host->frame_tree_node() == frame_tree_node_) {
     DestroyOnRenderFrameGone();
     // |this| may be deleted at this point.
@@ -721,8 +712,6 @@ void RenderFrameDevToolsAgentHost::SynchronousSwapCompositorFrame(
   if (!frame_trace_recorder_)
     return;
   bool did_initiate_recording = false;
-  for (auto* tracing : protocol::TracingHandler::ForAgentHost(this))
-    did_initiate_recording |= tracing->did_initiate_recording();
   if (did_initiate_recording) {
     frame_trace_recorder_->OnSynchronousSwapCompositorFrame(frame_host_,
                                                             frame_metadata);

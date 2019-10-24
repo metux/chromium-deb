@@ -18,7 +18,6 @@
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/browser_finder.h"
 #include "components/favicon/content/content_favicon_driver.h"
-#include "content/public/browser/background_tracing_manager.h"
 #include "content/public/browser/navigation_controller.h"
 #include "content/public/browser/web_contents.h"
 #include "content/public/common/content_features.h"
@@ -29,15 +28,6 @@ using resource_coordinator::TabLoadTracker;
 namespace {
 
 void BackgroundTracingTrigger() {
-  static content::BackgroundTracingManager::TriggerHandle trigger_handle_ = -1;
-  if (trigger_handle_ == -1) {
-    trigger_handle_ =
-        content::BackgroundTracingManager::GetInstance()->RegisterTriggerType(
-            "session-restore-config");
-  }
-  content::BackgroundTracingManager::GetInstance()->TriggerNamedEvent(
-      trigger_handle_,
-      content::BackgroundTracingManager::StartedFinalizingCallback());
 }
 
 const base::TickClock* GetDefaultTickClock() {

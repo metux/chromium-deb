@@ -508,7 +508,6 @@ repack("pak") {
   sources = [
     "$root_gen_dir/content/app/resources/content_resources_100_percent.pak",
     "$root_gen_dir/content/app/strings/content_strings_en-US.pak",
-    "$root_gen_dir/content/browser/tracing/tracing_resources.pak",
     "$root_gen_dir/content/content_resources.pak",
     "$root_gen_dir/content/shell/shell_resources.pak",
     "$root_gen_dir/mojo/public/js/mojo_bindings_resources.pak",
@@ -526,7 +525,6 @@ repack("pak") {
     "//content:resources",
     "//content/app/resources",
     "//content/app/strings",
-    "//content/browser/tracing:resources",
     "//mojo/public/js:resources",
     "//net:net_resources",
     "//third_party/blink/public:resources",

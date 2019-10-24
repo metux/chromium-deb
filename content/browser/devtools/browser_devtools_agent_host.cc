@@ -20,7 +20,6 @@
 #include "content/browser/devtools/protocol/system_info_handler.h"
 #include "content/browser/devtools/protocol/target_handler.h"
 #include "content/browser/devtools/protocol/tethering_handler.h"
-#include "content/browser/devtools/protocol/tracing_handler.h"
 #include "content/browser/frame_host/frame_tree_node.h"
 
 namespace content {
@@ -87,8 +86,6 @@ bool BrowserDevToolsAgentHost::AttachSession(DevToolsSession* session) {
     session->AddHandler(std::make_unique<protocol::TetheringHandler>(
         socket_callback_, tethering_task_runner_));
   }
-  session->AddHandler(
-      std::make_unique<protocol::TracingHandler>(nullptr, GetIOContext()));
   return true;
 }
 

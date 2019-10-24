@@ -20,7 +20,6 @@
 #include "base/values.h"
 #include "build/build_config.h"
 #include "chrome/browser/browser_process.h"
-#include "chrome/browser/tracing/crash_service_uploader.h"
 #include "components/heap_profiling/supervisor.h"
 #include "components/services/heap_profiling/public/cpp/controller.h"
 #include "components/services/heap_profiling/public/cpp/settings.h"
@@ -45,21 +44,6 @@ const char kConfigScenarioName[] = "scenario_name";
 const char kConfigCategoryKey[] = "category";
 const char kConfigCategoryMemlog[] = "MEMLOG";
 const char kOOPHeapProfilingUploadUrl[] = "upload_url";
-
-void OnTraceUploadComplete(TraceCrashServiceUploader* uploader,
-                           bool success,
-                           const std::string& feedback) {
-  UMA_HISTOGRAM_BOOLEAN("OutOfProcessHeapProfiling.UploadTrace.Success",
-                        success);
-
-  if (!success) {
-    LOG(ERROR) << "Cannot upload trace file: " << feedback;
-    return;
-  }
-
-  // The reports is successfully sent. Reports the crash-id to ease debugging.
-  LOG(WARNING) << "slow-reports sent: '" << feedback << '"';
-}
 
 void UploadTraceToCrashServer(std::string upload_url,
                               std::string file_contents,
@@ -89,16 +73,6 @@ void UploadTraceToCrashServer(std::string upload_url,
       std::make_unique<base::DictionaryValue>();
   metadata->SetKey("config", std::move(configs));
   metadata->SetKey(kConfigScenarioName, base::Value("MEMLOG"));
-
-  TraceCrashServiceUploader* uploader = new TraceCrashServiceUploader(
-      g_browser_process->shared_url_loader_factory());
-  if (!upload_url.empty())
-    uploader->SetUploadURL(upload_url);
-
-  uploader->DoUpload(file_contents, content::TraceUploader::COMPRESSED_UPLOAD,
-                     std::move(metadata),
-                     content::TraceUploader::UploadProgressCallback(),
-                     base::Bind(&OnTraceUploadComplete, base::Owned(uploader)));
 }
 
 }  // namespace

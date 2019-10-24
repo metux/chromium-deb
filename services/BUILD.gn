@@ -36,7 +36,6 @@ test("services_unittests") {
       "//services/proxy_resolver:tests",
       "//services/resource_coordinator:tests",
       "//services/shape_detection:tests",
-      "//services/tracing:tests",
       "//services/viz",
       "//services/viz/privileged/interfaces:unit_tests",
       "//services/viz/public/cpp/compositing:tests",

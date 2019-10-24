@@ -397,7 +397,6 @@ class CONTENT_EXPORT BrowserMainLoop {
   std::unique_ptr<discardable_memory::DiscardableSharedMemoryManager>
       discardable_shared_memory_manager_;
   scoped_refptr<SaveFileManager> save_file_manager_;
-  std::unique_ptr<content::TracingControllerImpl> tracing_controller_;
   scoped_refptr<responsiveness::Watcher> responsiveness_watcher_;
 #if !defined(OS_ANDROID)
   // A SharedBitmapManager used to sharing and mapping IDs to shared memory

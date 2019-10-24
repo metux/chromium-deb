@@ -91,8 +91,6 @@
 #include "content/browser/speech/speech_recognition_manager_impl.h"
 #include "content/browser/startup_data_impl.h"
 #include "content/browser/startup_task_runner.h"
-#include "content/browser/tracing/background_tracing_manager_impl.h"
-#include "content/browser/tracing/tracing_controller_impl.h"
 #include "content/browser/utility_process_host.h"
 #include "content/browser/webrtc/webrtc_internals.h"
 #include "content/browser/webui/content_web_ui_controller_factory.h"
@@ -1582,10 +1580,6 @@ void BrowserMainLoop::InitializeMojo() {
   // know they're running in the same process as the service.
   content::NavigableContentsView::SetClientRunningInServiceProcess();
 
-  tracing_controller_ = std::make_unique<content::TracingControllerImpl>();
-  content::BackgroundTracingManagerImpl::GetInstance()
-      ->AddMetadataGeneratorFunction();
-
   // Registers the browser process as a memory-instrumentation client, so
   // that data for the browser process will be available in memory dumps.
   service_manager::Connector* connector =
@@ -1594,29 +1588,6 @@ void BrowserMainLoop::InitializeMojo() {
       connector, resource_coordinator::mojom::kServiceName,
       memory_instrumentation::mojom::ProcessType::BROWSER);
   memory_instrumentation::ClientProcessImpl::CreateInstance(config);
-
-  // Start startup tracing through TracingController's interface. TraceLog has
-  // been enabled in content_main_runner where threads are not available. Now We
-  // need to start tracing for all other tracing agents, which require threads.
-  auto* trace_startup_config = tracing::TraceStartupConfig::GetInstance();
-  if (trace_startup_config->IsEnabled()) {
-    // This checks kTraceConfigFile switch.
-    TracingController::GetInstance()->StartTracing(
-        trace_startup_config->GetTraceConfig(),
-        TracingController::StartTracingDoneCallback());
-  } else if (parsed_command_line_.HasSwitch(switches::kTraceToConsole)) {
-    TracingController::GetInstance()->StartTracing(
-        tracing::GetConfigForTraceToConsole(),
-        TracingController::StartTracingDoneCallback());
-  }
-  // Start tracing to a file for certain duration if needed. Only do this after
-  // starting the main message loop to avoid calling
-  // MessagePumpForUI::ScheduleWork() before MessagePumpForUI::Start() as it
-  // will crash the browser.
-  if (trace_startup_config->IsTracingStartupForDuration()) {
-    TRACE_EVENT0("startup", "BrowserMainLoop::InitStartupTracingForDuration");
-    InitStartupTracingForDuration();
-  }
 
   if (parts_) {
     parts_->ServiceManagerConnectionStarted(
@@ -1658,14 +1629,7 @@ void BrowserMainLoop::InitStartupTracingForDuration() {
 }
 
 void BrowserMainLoop::EndStartupTracing() {
-  // Do nothing if startup tracing is already stopped.
-  if (!tracing::TraceStartupConfig::GetInstance()->IsEnabled())
-    return;
-
-  TracingController::GetInstance()->StopTracing(
-      TracingController::CreateFileEndpoint(
-          startup_trace_file_,
-          base::Bind(OnStoppedStartupTracing, startup_trace_file_)));
+  return;
 }
 
 void BrowserMainLoop::InitializeAudio() {

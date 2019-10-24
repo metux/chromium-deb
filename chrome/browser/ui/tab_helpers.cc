@@ -54,7 +54,6 @@
 #include "chrome/browser/sync/sessions/sync_sessions_web_contents_router_factory.h"
 #include "chrome/browser/tab_contents/navigation_metrics_recorder.h"
 #include "chrome/browser/complex_tasks/task_tab_helper.h"
-#include "chrome/browser/tracing/navigation_tracing.h"
 #include "chrome/browser/translate/chrome_translate_client.h"
 #include "chrome/browser/ui/autofill/chrome_autofill_client.h"
 #include "chrome/browser/ui/bloated_renderer/bloated_renderer_tab_helper.h"
@@ -88,7 +87,6 @@
 #include "components/offline_pages/buildflags/buildflags.h"
 #include "components/password_manager/core/browser/password_manager.h"
 #include "components/subresource_filter/core/browser/subresource_filter_features.h"
-#include "components/tracing/common/tracing_switches.h"
 #include "components/ukm/content/source_url_recorder.h"
 #include "content/public/browser/web_contents.h"
 #include "extensions/buildflags/buildflags.h"
@@ -356,9 +354,6 @@ offline_pages::AutoFetchPageLoadWatcher::CreateForWebContents(web_contents);
 
   if (predictors::LoadingPredictorFactory::GetForProfile(profile))
     predictors::LoadingPredictorTabHelper::CreateForWebContents(web_contents);
-
-  if (tracing::NavigationTracingObserver::IsEnabled())
-    tracing::NavigationTracingObserver::CreateForWebContents(web_contents);
 
   if (MediaEngagementService::IsEnabled())
     MediaEngagementService::CreateWebContentsObserver(web_contents);
