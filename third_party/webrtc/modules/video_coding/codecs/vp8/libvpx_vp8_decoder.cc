@@ -263,9 +263,6 @@ int LibvpxVp8Decoder::Decode(const EncodedImage& input_image,
 
   img = vpx_codec_get_frame(decoder_, &iter);
   int qp;
-  vpx_codec_err_t vpx_ret =
-      vpx_codec_control(decoder_, VPXD_GET_LAST_QUANTIZER, &qp);
-  RTC_DCHECK_EQ(vpx_ret, VPX_CODEC_OK);
   ret = ReturnFrame(img, input_image.Timestamp(), input_image.ntp_time_ms_, qp,
                     input_image.ColorSpace());
   if (ret != 0) {
@@ -325,7 +322,9 @@ int LibvpxVp8Decoder::ReturnFrame(const vpx_image_t* img,
                                  .set_ntp_time_ms(ntp_time_ms)
                                  .set_color_space(explicit_color_space)
                                  .build();
-  decode_complete_callback_->Decoded(decoded_image, absl::nullopt, qp);
+  int ret = decode_complete_callback_->Decoded(decoded_image);
+  if (ret != 0)
+    return ret;
 
   return WEBRTC_VIDEO_CODEC_OK;
 }
