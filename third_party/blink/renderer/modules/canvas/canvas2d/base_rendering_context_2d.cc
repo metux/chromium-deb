@@ -1773,8 +1773,8 @@ void BaseRenderingContext2D::putImageData(ImageData* data,
     data_length *= context_color_params.BytesPerPixel();
     if (!data_length.IsValid())
       return;
-    std::unique_ptr<uint8_t[]> converted_pixels(
-        new uint8_t[data_length.ValueOrDie()]);
+    size_t length = data_length.ValueOrDie();
+    std::unique_ptr<uint8_t[]> converted_pixels(new uint8_t[length]);
     if (data->ImageDataInCanvasColorSettings(
             ColorParams().ColorSpace(), PixelFormat(), converted_pixels.get(),
             kRGBAColorType)) {
