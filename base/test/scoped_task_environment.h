@@ -207,11 +207,11 @@ class ScopedTaskEnvironment {
  protected:
   explicit ScopedTaskEnvironment(ScopedTaskEnvironment&& other);
 
-  constexpr MainThreadType main_thread_type() const {
+  const MainThreadType main_thread_type() const {
     return main_thread_type_;
   }
 
-  constexpr ExecutionMode execution_control_mode() const {
+  const ExecutionMode execution_control_mode() const {
     return execution_control_mode_;
   }
 

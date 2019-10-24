@@ -51,7 +51,7 @@ void FillQMatrix(VAQMatrixBufferJPEG* q_matrix) {
   // Fill the raw, unscaled quantization tables for libva. The VAAPI driver is
   // responsible for scaling the quantization tables based on picture
   // parameter quality.
-  const JpegQuantizationTable& luminance = kDefaultQuantTable[0];
+  const JpegQuantizationTable luminance = kDefaultQuantTable[0];
   static_assert(std::extent<decltype(luminance.value)>() ==
                     std::extent<decltype(q_matrix->lum_quantiser_matrix)>(),
                 "Luminance quantization table size mismatch.");
@@ -62,7 +62,7 @@ void FillQMatrix(VAQMatrixBufferJPEG* q_matrix) {
     q_matrix->lum_quantiser_matrix[i] = luminance.value[kZigZag8x8[i]];
   }
 
-  const JpegQuantizationTable& chrominance = kDefaultQuantTable[1];
+  const JpegQuantizationTable chrominance = kDefaultQuantTable[1];
   static_assert(std::extent<decltype(chrominance.value)>() ==
                     std::extent<decltype(q_matrix->chroma_quantiser_matrix)>(),
                 "Chrominance quantization table size mismatch.");
