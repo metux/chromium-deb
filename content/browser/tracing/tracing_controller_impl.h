@@ -17,7 +17,6 @@
 #include "content/common/content_export.h"
 #include "content/public/browser/tracing_controller.h"
 #include "mojo/public/cpp/system/data_pipe_drainer.h"
-#include "services/tracing/public/mojom/tracing.mojom.h"
 
 namespace base {
 
@@ -95,7 +94,6 @@ class TracingControllerImpl
 
   void CompleteFlush();
 
-  tracing::mojom::CoordinatorPtr coordinator_;
   std::vector<std::unique_ptr<tracing::BaseAgent>> agents_;
   std::unique_ptr<TracingDelegate> delegate_;
   std::unique_ptr<base::trace_event::TraceConfig> trace_config_;

@@ -47,7 +47,6 @@
 #include "content/shell/common/web_test/fake_bluetooth_chooser.mojom.h"
 #include "content/shell/common/web_test/web_test_bluetooth_fake_adapter_setter.mojom.h"
 #include "content/shell/common/web_test/web_test_switches.h"
-#include "content/test/data/mojo_web_test_helper_test.mojom.h"
 #include "device/bluetooth/public/mojom/test/fake_bluetooth.mojom.h"
 #include "media/mojo/buildflags.h"
 #include "net/ssl/client_cert_identity.h"
@@ -161,7 +160,7 @@ const service_manager::Manifest& GetContentBrowserOverlayManifest() {
         .ExposeCapability(
             "renderer",
             service_manager::Manifest::InterfaceList<
-                mojom::MojoWebTestHelper, mojom::FakeBluetoothChooser,
+                mojom::FakeBluetoothChooser,
                 mojom::WebTestBluetoothFakeAdapterSetter,
                 bluetooth::mojom::FakeBluetooth>())
         .RequireCapability(echo::mojom::kServiceName, "echo")
@@ -169,10 +168,6 @@ const service_manager::Manifest& GetContentBrowserOverlayManifest() {
         .RequireCapability(ws::mojom::kServiceName, "test")
         .RequireCapability("test_ws", "test")
 #endif
-        .ExposeInterfaceFilterCapability_Deprecated(
-            "navigation:frame", "renderer",
-            service_manager::Manifest::InterfaceList<
-                mojom::MojoWebTestHelper>())
         .Build()
   };
   return *manifest;

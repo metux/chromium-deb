@@ -27,7 +27,6 @@
 #include "content/shell/browser/shell_browser_context.h"
 #include "content/shell/browser/web_test/blink_test_controller.h"
 #include "content/shell/browser/web_test/fake_bluetooth_chooser.h"
-#include "content/shell/browser/web_test/mojo_web_test_helper.h"
 #include "content/shell/browser/web_test/web_test_bluetooth_fake_adapter_setter_impl.h"
 #include "content/shell/browser/web_test/web_test_browser_context.h"
 #include "content/shell/browser/web_test/web_test_browser_main_parts.h"
@@ -46,11 +45,6 @@ namespace content {
 namespace {
 
 WebTestContentBrowserClient* g_web_test_browser_client;
-
-void BindWebTestHelper(mojom::MojoWebTestHelperRequest request,
-                       RenderFrameHost* render_frame_host) {
-  MojoWebTestHelper::Create(std::move(request));
-}
 
 class TestOverlayWindow : public OverlayWindow {
  public:
@@ -155,7 +149,6 @@ void WebTestContentBrowserClient::ExposeInterfacesToRenderer(
           &WebTestContentBrowserClient::CreateFakeBluetoothChooser,
           base::Unretained(this)),
       ui_task_runner);
-  registry->AddInterface(base::BindRepeating(&MojoWebTestHelper::Create));
   registry->AddInterface(
       base::BindRepeating(&WebTestContentBrowserClient::BindClipboardHost,
                           base::Unretained(this)),
@@ -313,7 +306,6 @@ bool WebTestContentBrowserClient::CanIgnoreCertificateErrorIfNeeded() {
 void WebTestContentBrowserClient::ExposeInterfacesToFrame(
     service_manager::BinderRegistryWithArgs<content::RenderFrameHost*>*
         registry) {
-  registry->AddInterface(base::Bind(&BindWebTestHelper));
 }
 
 scoped_refptr<LoginDelegate> WebTestContentBrowserClient::CreateLoginDelegate(

@@ -85,8 +85,6 @@
 #include "services/service_manager/sandbox/sandbox_type.h"
 #include "services/service_manager/service_manager.h"
 #include "services/shape_detection/public/mojom/constants.mojom.h"
-#include "services/tracing/public/mojom/constants.mojom.h"
-#include "services/tracing/tracing_service.h"
 #include "services/video_capture/public/mojom/constants.mojom.h"
 #include "services/video_capture/service_impl.h"
 #include "services/viz/public/interfaces/constants.mojom.h"
@@ -391,11 +389,6 @@ std::unique_ptr<service_manager::Service> CreateResourceCoordinatorService(
       std::move(request));
 }
 
-std::unique_ptr<service_manager::Service> CreateTracingService(
-    service_manager::mojom::ServiceRequest request) {
-  return std::make_unique<tracing::TracingService>(std::move(request));
-}
-
 std::unique_ptr<service_manager::Service> CreateMediaSessionService(
     service_manager::mojom::ServiceRequest request) {
   return std::make_unique<media_session::MediaSessionService>(
@@ -585,11 +578,6 @@ ServiceManagerContext::ServiceManagerContext(
       resource_coordinator::mojom::kServiceName,
       service_manager_thread_task_runner_,
       base::BindRepeating(&CreateResourceCoordinatorService));
-
-  RegisterInProcessService(packaged_services_connection_.get(),
-                           tracing::mojom::kServiceName,
-                           service_manager_thread_task_runner_,
-                           base::BindRepeating(&CreateTracingService));
 
   RegisterInProcessService(packaged_services_connection_.get(),
                            metrics::mojom::kMetricsServiceName,
