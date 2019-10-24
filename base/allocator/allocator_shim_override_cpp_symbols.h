@@ -36,7 +36,7 @@
 #define ALIGN_DEL_ARR_NOTHROW operator delete[]
 #else
 #define ALIGN_VAL_T size_t
-#define ALIGN_LINKAGE extern "C"
+#define ALIGN_LINKAGE
 #if defined(OS_MACOSX) || defined(OS_WIN)
 #error "Mangling is different on these platforms."
 #else
@@ -96,6 +96,8 @@ SHIM_ALWAYS_EXPORT void operator delete[](void* p, size_t) __THROW {
   ShimCppDelete(p);
 }
 
+extern "C" {
+
 SHIM_ALWAYS_EXPORT ALIGN_LINKAGE void* ALIGN_NEW(std::size_t size,
                                                  ALIGN_VAL_T alignment) {
   return ShimCppAlignedNew(size, static_cast<size_t>(alignment));
@@ -149,4 +151,6 @@ SHIM_ALWAYS_EXPORT ALIGN_LINKAGE void ALIGN_DEL_ARR_SIZED(void* p,
 SHIM_ALWAYS_EXPORT ALIGN_LINKAGE void
 ALIGN_DEL_ARR_NOTHROW(void* p, ALIGN_VAL_T, const std::nothrow_t&) __THROW {
   ShimCppDelete(p);
+}
+
 }
