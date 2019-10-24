@@ -379,6 +379,7 @@ void ShowSearchEngineSettings(Browser* browser) {
 #if !defined(OS_ANDROID)
 void ShowBrowserSignin(Browser* browser,
                        signin_metrics::AccessPoint access_point) {
+#if 0
   Profile* original_profile = browser->profile()->GetOriginalProfile();
   DCHECK(original_profile->GetPrefs()->GetBoolean(prefs::kSigninAllowed));
 
@@ -406,6 +407,7 @@ void ShowBrowserSignin(Browser* browser,
           : profiles::BUBBLE_VIEW_MODE_GAIA_SIGNIN;
   browser->signin_view_controller()->ShowSignin(bubble_view_mode, browser,
                                                 access_point);
+#endif
 #endif
 }
 

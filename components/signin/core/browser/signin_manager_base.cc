@@ -158,7 +158,7 @@ void SigninManagerBase::FinalizeInitBeforeLoadingRefreshTokens(
 bool SigninManagerBase::IsInitialized() const { return initialized_; }
 
 bool SigninManagerBase::IsSigninAllowed() const {
-  return client_->GetPrefs()->GetBoolean(prefs::kSigninAllowed);
+  return false;
 }
 
 AccountInfo SigninManagerBase::GetAuthenticatedAccountInfo() const {

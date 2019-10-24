@@ -365,6 +365,7 @@ void InlineSigninHelper::OnClientOAuthSuccessAndBrowserOpened(
   } else {
     if (HandleCrossAccountError(result.refresh_token))
       return;
+#if BUILDFLAG(ENABLE_ONE_CLICK_SIGNIN)
     if (confirm_untrusted_signin_) {
       // Display a confirmation dialog to the user.
       base::RecordAction(
@@ -379,6 +380,7 @@ void InlineSigninHelper::OnClientOAuthSuccessAndBrowserOpened(
     }
     CreateSyncStarter(browser, current_url_, result.refresh_token,
                       OneClickSigninSyncStarter::CURRENT_PROFILE);
+#endif
     base::ThreadTaskRunnerHandle::Get()->DeleteSoon(FROM_HERE, this);
   }
 }
@@ -411,12 +413,14 @@ void InlineSigninHelper::CreateSyncStarter(
     const GURL& current_url,
     const std::string& refresh_token,
     OneClickSigninSyncStarter::ProfileMode profile_mode) {
+#if BUILDFLAG(ENABLE_ONE_CLICK_SIGNIN)
   // OneClickSigninSyncStarter will delete itself once the job is done.
   new OneClickSigninSyncStarter(
       profile_, browser, gaia_id_, email_, password_, refresh_token,
       signin::GetAccessPointForEmbeddedPromoURL(current_url),
       signin::GetSigninReasonForEmbeddedPromoURL(current_url), profile_mode,
       base::Bind(&InlineLoginHandlerImpl::SyncStarterCallback, handler_));
+#endif
 }
 
 bool InlineSigninHelper::HandleCrossAccountError(
