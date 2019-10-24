@@ -9,7 +9,6 @@ import("//build/config/compiler/compiler.gni")
 import("//build/config/sanitizers/sanitizers.gni")
 import("//build/config/sysroot.gni")
 import("//build/toolchain/toolchain.gni")
-import("//buildtools/deps_revisions.gni")
 
 # This build configuration is used by both Fuchsia and POSIX systems.
 assert(is_posix || is_fuchsia)
