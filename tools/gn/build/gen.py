@@ -320,7 +320,6 @@ def WriteGNNinja(path, platform, host, options):
 
     if platform.is_linux():
       ldflags.extend([
-          '-static-libstdc++',
           '-Wl,--as-needed',
       ])
       # This is needed by libc++.
