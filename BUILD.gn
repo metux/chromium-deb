@@ -661,7 +661,7 @@ group("gn_all") {
     }
   }
 
-  if (is_mac || is_linux || is_android || is_fuchsia) {
+  if (false) {
     deps += [ "//third_party/perfetto:all" ]
   }
 
