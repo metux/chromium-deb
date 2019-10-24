@@ -165,7 +165,8 @@ class HeadlessProxyConfigMonitor
       public ::network::mojom::ProxyConfigPollerClient {
  public:
   static void DeleteSoon(std::unique_ptr<HeadlessProxyConfigMonitor> instance) {
-    instance->task_runner_->DeleteSoon(FROM_HERE, instance.release());
+    const scoped_refptr<base::SingleThreadTaskRunner>& runner = instance->task_runner_;
+    runner->DeleteSoon(FROM_HERE, instance.release());
   }
 
   explicit HeadlessProxyConfigMonitor(

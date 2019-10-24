@@ -81,7 +81,10 @@ void CoordinationUnitBase::SetProperty(mojom::PropertyType property_type,
 // static
 CoordinationUnitBase* CoordinationUnitBase::PassOwnershipToGraph(
     std::unique_ptr<CoordinationUnitBase> new_cu) {
-  return new_cu->graph()->AddNewCoordinationUnit(std::move(new_cu));
+  CoordinationUnitGraph* graph = new_cu->graph();
+  if (graph)
+    return graph->AddNewCoordinationUnit(std::move(new_cu));
+  LOG(ERROR) << "CoordinationUnitGraph pointer is null.";
 }
 
 }  // namespace resource_coordinator
