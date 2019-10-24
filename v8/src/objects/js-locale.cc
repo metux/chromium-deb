@@ -20,7 +20,6 @@
 #include "src/objects-inl.h"
 #include "src/objects/intl-objects.h"
 #include "src/objects/js-locale-inl.h"
-#include "unicode/char16ptr.h"
 #include "unicode/locid.h"
 #include "unicode/uloc.h"
 #include "unicode/unistr.h"
@@ -29,6 +28,51 @@ namespace v8 {
 namespace internal {
 
 namespace {
+
+// Adapted from icu 6.3
+void
+getUnicodeKeywordValue(const icu::Locale& locale, StringPiece keywordName, ByteSink& sink, UErrorCode& status)
+{
+    if (keywordName.empty()) {
+        return;
+    }
+
+    const char* keyword_name = keywordName.data();
+    if (keyword_name[keywordName.length()-1] != '\0') {
+        return;
+    }
+
+    const char* legacy_key = uloc_toLegacyKey(keyword_name);
+    if (legacy_key == nullptr) {
+        status = U_ILLEGAL_ARGUMENT_ERROR;
+        return;
+    }
+
+    char legacy_value[ULOC_FULLNAME_CAPACITY];
+    uloc_getKeywordValue(locale.getName(), legacy_key, legacy_value, ULOC_FULLNAME_CAPACITY, &status);
+    if (U_FAILURE(status)) {
+        return;
+    }
+
+    const char* unicode_value = uloc_toUnicodeLocaleType(
+            keyword_name, legacy_value);
+    if (unicode_value == nullptr) {
+        status = U_ILLEGAL_ARGUMENT_ERROR;
+        return;
+    }
+
+    sink.Append(unicode_value, static_cast<int32_t>(strlen(unicode_value)));
+}
+
+// From icu 6.3
+template<typename StringClass> inline StringClass
+getUnicodeKeywordValue(const icu::Locale& locale, StringPiece keywordName, UErrorCode& status)
+{
+    StringClass result;
+    StringByteSink<StringClass> sink(&result);
+    getUnicodeKeywordValue(locale, keywordName, sink, status);
+    return result;
+}
 
 // Helper function to check a locale is valid. It will return false if
 // the length of the extension fields are incorrect. For example, en-u-a or
@@ -130,7 +174,7 @@ Handle<Object> UnicodeKeywordValue(Isolate* isolate, Handle<JSLocale> locale,
   icu::Locale* icu_locale = locale->icu_locale()->raw();
   UErrorCode status = U_ZERO_ERROR;
   std::string value =
-      icu_locale->getUnicodeKeywordValue<std::string>(key, status);
+      getUnicodeKeywordValue<std::string>(*icu_locale, key, status);
   if (status == U_ILLEGAL_ARGUMENT_ERROR || value == "") {
     return isolate->factory()->undefined_value();
   }
@@ -202,9 +246,20 @@ Maybe<icu::Locale> ApplyOptionsToTag(Isolate* isolate, Handle<String> tag,
   // 2. If IsStructurallyValidLanguageTag(tag) is false, throw a RangeError
   // exception.
   UErrorCode status = U_ZERO_ERROR;
-  icu::Locale icu_locale =
-      icu::Locale::forLanguageTag({*bcp47_tag, bcp47_tag.length()}, status);
-  if (U_FAILURE(status)) {
+  char icu_result[ULOC_FULLNAME_CAPACITY];
+  int parsed_length = 0;
+  int icu_length =
+      uloc_forLanguageTag(*bcp47_tag, icu_result, ULOC_FULLNAME_CAPACITY,
+                          &parsed_length, &status);
+  if (U_FAILURE(status) ||
+      parsed_length < static_cast<int>(bcp47_tag.length()) ||
+      status == U_STRING_NOT_TERMINATED_WARNING || icu_length == 0) {
+    THROW_NEW_ERROR_RETURN_VALUE(
+        isolate, NewRangeError(MessageTemplate::kLocaleBadParameters),
+        Nothing<icu::Locale>());
+  }
+  icu::Locale icu_locale(icu_result, FALSE);
+  if (icu_locale.isBogus()) {
     THROW_NEW_ERROR_RETURN_VALUE(
         isolate, NewRangeError(MessageTemplate::kLocaleBadParameters),
         Nothing<icu::Locale>());
@@ -359,34 +414,46 @@ MaybeHandle<JSLocale> JSLocale::Initialize(Isolate* isolate,
 }
 
 namespace {
-Handle<String> MorphLocale(Isolate* isolate, String locale,
-                           void (*morph_func)(icu::Locale*, UErrorCode*)) {
+Handle<String> MorphLocale(Isolate* isolate, String language_tag,
+                           int32_t (*morph_func)(const char*, char*, int32_t,
+                                                 UErrorCode*)) {
+  char localeBuffer[ULOC_FULLNAME_CAPACITY];
+  char morphBuffer[ULOC_FULLNAME_CAPACITY];
+
   UErrorCode status = U_ZERO_ERROR;
-  icu::Locale icu_locale =
-      icu::Locale::forLanguageTag(locale.ToCString().get(), status);
-  CHECK(U_SUCCESS(status));
-  CHECK(!icu_locale.isBogus());
-  (*morph_func)(&icu_locale, &status);
-  CHECK(U_SUCCESS(status));
-  CHECK(!icu_locale.isBogus());
-  std::string locale_str = Intl::ToLanguageTag(icu_locale).FromJust();
+  // Convert from language id to locale.
+  int32_t parsed_length;
+  int32_t length =
+      uloc_forLanguageTag(language_tag->ToCString().get(), localeBuffer,
+                          ULOC_FULLNAME_CAPACITY, &parsed_length, &status);
+  CHECK(parsed_length == language_tag->length());
+  DCHECK(U_SUCCESS(status));
+  DCHECK_GT(length, 0);
+  DCHECK_NOT_NULL(morph_func);
+  // Add the likely subtags or Minimize the subtags on the locale id
+  length =
+      (*morph_func)(localeBuffer, morphBuffer, ULOC_FULLNAME_CAPACITY, &status);
+  DCHECK(U_SUCCESS(status));
+  DCHECK_GT(length, 0);
+  // Returns a well-formed language tag
+  length = uloc_toLanguageTag(morphBuffer, localeBuffer, ULOC_FULLNAME_CAPACITY,
+                              false, &status);
+  DCHECK(U_SUCCESS(status));
+  DCHECK_GT(length, 0);
+  std::string locale_str(localeBuffer, length);
+  std::replace(locale_str.begin(), locale_str.end(), '_', '-');
+
   return isolate->factory()->NewStringFromAsciiChecked(locale_str.c_str());
 }
 
 }  // namespace
 
 Handle<String> JSLocale::Maximize(Isolate* isolate, String locale) {
-  return MorphLocale(isolate, locale,
-                     [](icu::Locale* icu_locale, UErrorCode* status) {
-                       icu_locale->addLikelySubtags(*status);
-                     });
+  return MorphLocale(isolate, locale, uloc_addLikelySubtags);
 }
 
 Handle<String> JSLocale::Minimize(Isolate* isolate, String locale) {
-  return MorphLocale(isolate, locale,
-                     [](icu::Locale* icu_locale, UErrorCode* status) {
-                       icu_locale->minimizeSubtags(*status);
-                     });
+  return MorphLocale(isolate, locale, uloc_minimizeSubtags);
 }
 
 Handle<Object> JSLocale::Language(Isolate* isolate, Handle<JSLocale> locale) {
@@ -438,7 +505,7 @@ Handle<Object> JSLocale::Numeric(Isolate* isolate, Handle<JSLocale> locale) {
   icu::Locale* icu_locale = locale->icu_locale()->raw();
   UErrorCode status = U_ZERO_ERROR;
   std::string numeric =
-      icu_locale->getUnicodeKeywordValue<std::string>("kn", status);
+      getUnicodeKeywordValue<std::string>(*icu_locale, "kn", status);
   return (numeric == "true") ? factory->true_value() : factory->false_value();
 }
 

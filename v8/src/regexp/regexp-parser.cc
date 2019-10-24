@@ -1293,11 +1293,9 @@ bool IsSupportedBinaryProperty(UProperty property) {
     case UCHAR_DEPRECATED:
     case UCHAR_DIACRITIC:
     case UCHAR_EMOJI:
-    case UCHAR_EMOJI_COMPONENT:
     case UCHAR_EMOJI_MODIFIER_BASE:
     case UCHAR_EMOJI_MODIFIER:
     case UCHAR_EMOJI_PRESENTATION:
-    case UCHAR_EXTENDED_PICTOGRAPHIC:
     case UCHAR_EXTENDER:
     case UCHAR_GRAPHEME_BASE:
     case UCHAR_GRAPHEME_EXTEND:
@@ -1316,7 +1314,6 @@ bool IsSupportedBinaryProperty(UProperty property) {
     case UCHAR_PATTERN_WHITE_SPACE:
     case UCHAR_QUOTATION_MARK:
     case UCHAR_RADICAL:
-    case UCHAR_REGIONAL_INDICATOR:
     case UCHAR_S_TERM:
     case UCHAR_SOFT_DOTTED:
     case UCHAR_TERMINAL_PUNCTUATION:

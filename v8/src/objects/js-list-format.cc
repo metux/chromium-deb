@@ -284,7 +284,6 @@ MaybeHandle<JSArray> GenerateListFormatParts(
   Handle<String> substring;
   for (const icu::FieldPosition pos : positions) {
     CHECK(pos.getBeginIndex() >= prev_item_end_index);
-    CHECK(pos.getField() == ULISTFMT_ELEMENT_FIELD);
     if (pos.getBeginIndex() != prev_item_end_index) {
       ASSIGN_RETURN_ON_EXCEPTION(
           isolate, substring,
@@ -322,10 +321,7 @@ std::vector<icu::FieldPosition> GenerateFieldPosition(
   std::vector<icu::FieldPosition> positions;
   icu::FieldPosition pos;
   while (iter.next(pos)) {
-    // Only take the information of the ULISTFMT_ELEMENT_FIELD field.
-    if (pos.getField() == ULISTFMT_ELEMENT_FIELD) {
       positions.push_back(pos);
-    }
   }
   // Because the format may reoder the items, ICU FieldPositionIterator
   // keep the order for FieldPosition based on the order of the input items.
@@ -441,7 +437,7 @@ MaybeHandle<JSArray> JSListFormat::FormatListToParts(
   icu::UnicodeString formatted;
   icu::FieldPositionIterator iter;
   formatter->format(array.data(), static_cast<int32_t>(array.size()), formatted,
-                    &iter, status);
+                    status);
   DCHECK(U_SUCCESS(status));
 
   std::vector<icu::FieldPosition> field_positions = GenerateFieldPosition(iter);

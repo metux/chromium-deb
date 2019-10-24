@@ -38,14 +38,6 @@
 #include "unicode/ustring.h"
 #include "unicode/uvernum.h"  // U_ICU_VERSION_MAJOR_NUM
 
-#define XSTR(s) STR(s)
-#define STR(s) #s
-static_assert(
-    V8_MINIMUM_ICU_VERSION <= U_ICU_VERSION_MAJOR_NUM,
-    "v8 is required to build with ICU " XSTR(V8_MINIMUM_ICU_VERSION) " and up");
-#undef STR
-#undef XSTR
-
 namespace v8 {
 namespace internal {
 
@@ -408,9 +400,21 @@ icu::Locale Intl::CreateICULocale(const std::string& bcp47_locale) {
 
   // Convert BCP47 into ICU locale format.
   UErrorCode status = U_ZERO_ERROR;
+  char icu_result[ULOC_FULLNAME_CAPACITY];
+  int parsed_length = 0;
 
-  icu::Locale icu_locale = icu::Locale::forLanguageTag(bcp47_locale, status);
+  // bcp47_locale_str should be a canonicalized language tag, which
+  // means this shouldn't fail.
+  uloc_forLanguageTag(bcp47_locale.c_str(), icu_result, ULOC_FULLNAME_CAPACITY,
+                      &parsed_length, &status);
   CHECK(U_SUCCESS(status));
+
+  // bcp47_locale is already checked for its structural validity
+  // so that it should be parsed completely.
+  size_t bcp47_length = bcp47_locale.length();
+  CHECK_EQ(bcp47_length, parsed_length);
+
+  icu::Locale icu_locale(icu_result);
   if (icu_locale.isBogus()) {
     FATAL("Failed to create ICU locale, are ICU data files missing?");
   }
@@ -518,7 +522,13 @@ std::set<std::string> Intl::BuildLocaleSet(
 
 Maybe<std::string> Intl::ToLanguageTag(const icu::Locale& locale) {
   UErrorCode status = U_ZERO_ERROR;
-  std::string res = locale.toLanguageTag<std::string>(status);
+  char result[ULOC_FULLNAME_CAPACITY];
+  uloc_toLanguageTag(locale.getName(), result, ULOC_FULLNAME_CAPACITY, FALSE, &status);
+  if (U_FAILURE(status) || status == U_STRING_NOT_TERMINATED_WARNING) {
+    // This shouldn't happen, but lets not break the user.
+    return Nothing<std::string>();
+  }
+  std::string res(result);
   if (U_FAILURE(status)) {
     return Nothing<std::string>();
   }
@@ -766,26 +776,36 @@ Maybe<std::string> Intl::CanonicalizeLanguageTag(Isolate* isolate,
   // handle long locale names better. See
   // https://unicode-org.atlassian.net/browse/ICU-13417
   UErrorCode error = U_ZERO_ERROR;
+  char icu_result[ULOC_FULLNAME_CAPACITY];
   // uloc_forLanguageTag checks the structrual validity. If the input BCP47
   // language tag is parsed all the way to the end, it indicates that the input
   // is structurally valid. Due to a couple of bugs, we can't use it
   // without Chromium patches or ICU 62 or earlier.
-  icu::Locale icu_locale = icu::Locale::forLanguageTag(locale.c_str(), error);
-  if (U_FAILURE(error) || icu_locale.isBogus()) {
-    THROW_NEW_ERROR_RETURN_VALUE(
-        isolate,
-        NewRangeError(MessageTemplate::kInvalidLanguageTag, locale_str),
-        Nothing<std::string>());
-  }
-  Maybe<std::string> maybe_to_language_tag = Intl::ToLanguageTag(icu_locale);
-  if (maybe_to_language_tag.IsNothing()) {
+  int parsed_length;
+  uloc_forLanguageTag(locale.c_str(), icu_result, ULOC_FULLNAME_CAPACITY,
+                      &parsed_length, &error);
+  if (U_FAILURE(error) ||
+      static_cast<size_t>(parsed_length) < locale.length() ||
+      error == U_STRING_NOT_TERMINATED_WARNING) {
     THROW_NEW_ERROR_RETURN_VALUE(
         isolate,
         NewRangeError(MessageTemplate::kInvalidLanguageTag, locale_str),
         Nothing<std::string>());
   }
 
-  return Intl::ToLanguageTag(icu_locale);
+  // Force strict BCP47 rules.
+  char result[ULOC_FULLNAME_CAPACITY];
+  int32_t result_len = uloc_toLanguageTag(icu_result, result,
+                                          ULOC_FULLNAME_CAPACITY, TRUE, &error);
+
+  if (U_FAILURE(error)) {
+    THROW_NEW_ERROR_RETURN_VALUE(
+        isolate,
+        NewRangeError(MessageTemplate::kInvalidLanguageTag, locale_str),
+        Nothing<std::string>());
+  }
+
+  return Just(std::string(result, result_len));
 }
 
 Maybe<std::vector<std::string>> Intl::CanonicalizeLocaleList(
