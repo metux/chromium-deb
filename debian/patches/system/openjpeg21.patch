@@ -1,5 +1,5 @@
-description: maintain compatibility with openjpeg 2.1
-author: chromium 57 authors
+Subject: maintain compatibility with openjpeg 2.1
+From: chromium 57 authors <none@none.org>
 
 --- a/third_party/pdfium/core/fxcodec/codec/ccodec_jpxmodule.cpp
 +++ b/third_party/pdfium/core/fxcodec/codec/ccodec_jpxmodule.cpp

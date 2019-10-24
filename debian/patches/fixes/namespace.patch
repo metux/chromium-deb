@@ -1,5 +1,5 @@
-description: jumbo build has trouble with these namespaces
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: jumbo build has trouble with these namespaces
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/chrome/browser/apps/platform_apps/api/sync_file_system/extension_sync_event_observer.h
 +++ b/chrome/browser/apps/platform_apps/api/sync_file_system/extension_sync_event_observer.h

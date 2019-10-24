@@ -1,5 +1,5 @@
-description: gcc 6 cannot automatically resolve the this pointer in a lambda
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: gcc 6 cannot automatically resolve the this pointer in a lambda
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/chrome/browser/usb/web_usb_service_impl.cc
 +++ b/chrome/browser/usb/web_usb_service_impl.cc

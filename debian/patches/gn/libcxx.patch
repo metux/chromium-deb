@@ -1,5 +1,5 @@
-description: avoid chromium's embedded C++ library when bootstrapping gn
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: avoid chromium's embedded C++ library when bootstrapping gn
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/tools/gn/build/gen.py
 +++ b/tools/gn/build/gen.py

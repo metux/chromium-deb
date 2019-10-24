@@ -1,3 +1,6 @@
+From: unknown <none@none.org>
+Subject: fixes for icu
+
 --- a/v8/src/objects/js-locale.cc
 +++ b/v8/src/objects/js-locale.cc
 @@ -29,6 +29,51 @@ namespace internal {

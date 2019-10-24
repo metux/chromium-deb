@@ -1,5 +1,5 @@
-description: disable tracing, it depends on too many sourceless javascript files
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: disable tracing, it depends on too many sourceless javascript files
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn

@@ -1,5 +1,5 @@
-description: explicit return type is needed by gcc 6 to deduce template argument type
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: explicit return type is needed by gcc 6 to deduce template argument type
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/third_party/blink/renderer/modules/canvas/canvas2d/base_rendering_context_2d.cc
 +++ b/third_party/blink/renderer/modules/canvas/canvas2d/base_rendering_context_2d.cc

@@ -1,6 +1,6 @@
-description: ffmpeg decoders before version 4.0 require explicit initialization
-author: Michael Gilbert <mgilbert@debian.org>
-origin: chromium 66 authors
+Subject: ffmpeg decoders before version 4.0 require explicit initialization
+From: Michael Gilbert <mgilbert@debian.org>
+Origin: chromium 66 authors
 
 --- a/media/filters/ffmpeg_audio_decoder.cc
 +++ b/media/filters/ffmpeg_audio_decoder.cc

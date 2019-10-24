@@ -1,5 +1,5 @@
-description: fix mojo layout test build error
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: fix mojo layout test build error
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/mojo/public/tools/bindings/chromium_bindings_configuration.gni
 +++ b/mojo/public/tools/bindings/chromium_bindings_configuration.gni

@@ -1,5 +1,5 @@
-description: gcc 6 won't compile 'extern "C"' as a macro
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: gcc 6 won't compile 'extern "C"' as a macro
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/base/allocator/allocator_shim_override_cpp_symbols.h
 +++ b/base/allocator/allocator_shim_override_cpp_symbols.h

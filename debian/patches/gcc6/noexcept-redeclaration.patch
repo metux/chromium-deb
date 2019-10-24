@@ -1,5 +1,5 @@
-description: gcc 6 refuses to compile methods redeclared with noexcept
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: gcc 6 refuses to compile methods redeclared with noexcept
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/media/learning/common/labelled_example.cc
 +++ b/media/learning/common/labelled_example.cc

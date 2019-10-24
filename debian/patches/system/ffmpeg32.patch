@@ -1,5 +1,5 @@
-description: changes required to support ffmpeg 3.2 in stretch
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: changes required to support ffmpeg 3.2 in stretch
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/media/ffmpeg/ffmpeg_common.cc
 +++ b/media/ffmpeg/ffmpeg_common.cc

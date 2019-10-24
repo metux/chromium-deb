@@ -1,5 +1,5 @@
-description: use system libevent
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: use system libevent
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/third_party/webrtc/rtc_base/task_queue_libevent.cc
 +++ b/third_party/webrtc/rtc_base/task_queue_libevent.cc

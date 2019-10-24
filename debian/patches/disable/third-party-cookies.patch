@@ -1,5 +1,5 @@
-description: disable third-party cookies by default
-author: Chad Miller <chad.miller@canonical.com>
+Subject: disable third-party cookies by default
+From: Chad Miller <chad.miller@canonical.com>
 
 --- a/components/content_settings/core/browser/cookie_settings.cc
 +++ b/components/content_settings/core/browser/cookie_settings.cc

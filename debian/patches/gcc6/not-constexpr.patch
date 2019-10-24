@@ -1,5 +1,5 @@
-description: remove constexpr from methods where it is not supported by gcc 6
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: remove constexpr from methods where it is not supported by gcc 6
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/base/test/scoped_task_environment.h
 +++ b/base/test/scoped_task_environment.h

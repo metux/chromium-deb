@@ -1,5 +1,5 @@
-description: fuzzers aren't built, so don't depend on them
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: fuzzers aren't built, so don't depend on them
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/BUILD.gn
 +++ b/BUILD.gn

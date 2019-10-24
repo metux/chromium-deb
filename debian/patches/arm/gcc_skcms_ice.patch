@@ -1,6 +1,6 @@
-description: GCC ICE with optimized version
-author: Riku Voipio
-bug-debian: http://bugs.debian.org/901290
+Subject: GCC ICE with optimized version
+From: Riku Voipio <none@none.org>
+Bug-Debian: http://bugs.debian.org/901290
 
 --- a/skia/BUILD.gn
 +++ b/skia/BUILD.gn

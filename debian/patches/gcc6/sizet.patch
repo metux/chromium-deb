@@ -1,5 +1,5 @@
-description: size_t is not in scope by default in gcc 6
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: size_t is not in scope by default in gcc 6
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/media/base/subsample_entry.h
 +++ b/media/base/subsample_entry.h

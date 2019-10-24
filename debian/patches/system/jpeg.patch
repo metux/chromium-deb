@@ -1,5 +1,5 @@
-description: use system jpeg library
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: use system jpeg library
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/BUILD.gn
 +++ b/BUILD.gn

@@ -1,5 +1,5 @@
-description: disable dependency on chrome/android
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: disable dependency on chrome/android
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/device/vr/buildflags/buildflags.gni
 +++ b/device/vr/buildflags/buildflags.gni

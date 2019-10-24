@@ -1,5 +1,6 @@
-description: disable browser sign-in
-origin: https://raw.githubusercontent.com/Eloston/ungoogled-chromium/master/resources/patches/ungoogled-chromium/disable-signin.patch
+Subject: disable browser sign-in
+From: unknown <none@none.org>
+Url: https://raw.githubusercontent.com/Eloston/ungoogled-chromium/master/resources/patches/ungoogled-chromium/disable-signin.patch
 
 --- a/components/signin/core/browser/signin_manager_base.cc
 +++ b/components/signin/core/browser/signin_manager_base.cc

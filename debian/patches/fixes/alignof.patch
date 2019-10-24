@@ -1,6 +1,6 @@
-description: use __alignof__ since as of gcc8 alignof returns 4 != 8 bytes on i386
-origin: https://src.fedoraproject.org/cgit/rpms/chromium.git/tree/chromium-66.0.3359.170-gcc8-alignof.patch
-author: Fedora chromium maintainers
+Subject: use __alignof__ since as of gcc8 alignof returns 4 != 8 bytes on i386
+Origin: https://src.fedoraproject.org/cgit/rpms/chromium.git/tree/chromium-66.0.3359.170-gcc8-alignof.patch
+From: Fedora chromium maintainers <none@none.org>
 
 --- a/mojo/public/c/system/macros.h
 +++ b/mojo/public/c/system/macros.h

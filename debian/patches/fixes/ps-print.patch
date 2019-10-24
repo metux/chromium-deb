@@ -1,5 +1,5 @@
-description: add postscript (ps) printing capability
-author: Salvatore Bonaccorso
+Subject: add postscript (ps) printing capability
+From: Salvatore Bonaccorso <none@none.org>
 
 --- a/chrome/browser/ui/libgtkui/print_dialog_gtk.cc
 +++ b/chrome/browser/ui/libgtkui/print_dialog_gtk.cc

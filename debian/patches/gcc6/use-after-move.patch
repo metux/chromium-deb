@@ -1,5 +1,5 @@
-description: gcc 6 does not support using a unique_ptr after it has been moved
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: gcc 6 does not support using a unique_ptr after it has been moved
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/services/resource_coordinator/coordination_unit/coordination_unit_base.cc
 +++ b/services/resource_coordinator/coordination_unit/coordination_unit_base.cc

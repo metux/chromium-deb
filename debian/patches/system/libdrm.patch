@@ -1,5 +1,5 @@
-description: libdrm in stretch doesn't explicitly define DRM_FORMAT_MOD_INVALID
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: libdrm in stretch doesn't explicitly define DRM_FORMAT_MOD_INVALID
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/ui/gfx/native_pixmap_handle.cc
 +++ b/ui/gfx/native_pixmap_handle.cc

@@ -1,5 +1,5 @@
-description: gcc 6 does not have sqrtf in namespace std
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: gcc 6 does not have sqrtf in namespace std
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/ui/gfx/color_utils.cc
 +++ b/ui/gfx/color_utils.cc

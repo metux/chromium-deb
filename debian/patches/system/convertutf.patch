@@ -1,6 +1,6 @@
-description: use icu for UTF8 conversions (eliminates ConvertUTF embedded code copy)
-bug-debian: http://bugs.debian.org/900596
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: use icu for UTF8 conversions (eliminates ConvertUTF embedded code copy)
+Bug-Debian: http://bugs.debian.org/900596
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/third_party/breakpad/breakpad/src/common/string_conversion.cc
 +++ b/third_party/breakpad/breakpad/src/common/string_conversion.cc

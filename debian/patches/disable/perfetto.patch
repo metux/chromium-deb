@@ -1,5 +1,5 @@
-description: disable dependencies on third_party/perfetto
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: disable dependencies on third_party/perfetto
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/BUILD.gn
 +++ b/BUILD.gn

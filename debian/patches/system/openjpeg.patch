@@ -1,5 +1,5 @@
-description: build using system openjpeg
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: build using system openjpeg
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/third_party/pdfium/third_party/BUILD.gn
 +++ b/third_party/pdfium/third_party/BUILD.gn

@@ -1,5 +1,5 @@
-description: set widevine version as undefined
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: set widevine version as undefined
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/third_party/widevine/cdm/widevine_cdm_version.h
 +++ b/third_party/widevine/cdm/widevine_cdm_version.h

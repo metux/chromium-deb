@@ -1,5 +1,5 @@
-description: avoid building the swiftshader library
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: avoid building the swiftshader library
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/BUILD.gn
 +++ b/BUILD.gn

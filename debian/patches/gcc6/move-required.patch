@@ -1,5 +1,5 @@
-description: gcc 6 needs an explicit hint that these objects should be moved
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: gcc 6 needs an explicit hint that these objects should be moved
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/extensions/browser/api/declarative_webrequest/webrequest_action.cc
 +++ b/extensions/browser/api/declarative_webrequest/webrequest_action.cc

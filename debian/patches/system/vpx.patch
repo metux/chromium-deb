@@ -1,5 +1,5 @@
-description: maintain compatibility with vpx 1.7
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: maintain compatibility with vpx 1.7
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/media/base/supported_types.cc
 +++ b/media/base/supported_types.cc

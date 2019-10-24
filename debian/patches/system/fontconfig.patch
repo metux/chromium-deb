@@ -1,5 +1,5 @@
-description: disable build commands for embedded fontconfig
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: disable build commands for embedded fontconfig
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/build/config/posix/BUILD.gn
 +++ b/build/config/posix/BUILD.gn

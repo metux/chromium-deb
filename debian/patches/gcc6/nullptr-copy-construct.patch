@@ -1,5 +1,5 @@
-description: gcc 6 does not support copy construction from a nullptr
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: gcc 6 does not support copy construction from a nullptr
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/components/omnibox/browser/autocomplete_match.cc
 +++ b/components/omnibox/browser/autocomplete_match.cc

@@ -1,5 +1,5 @@
-description: add constexpr to methods where it is required
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: add constexpr to methods where it is required
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/third_party/blink/renderer/core/animation/animation_time_delta.h
 +++ b/third_party/blink/renderer/core/animation/animation_time_delta.h

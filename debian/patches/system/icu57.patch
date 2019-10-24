@@ -1,5 +1,5 @@
-description: backwards compatibility for older versions of icu
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: backwards compatibility for older versions of icu
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/components/url_formatter/idn_spoof_checker.cc
 +++ b/components/url_formatter/idn_spoof_checker.cc

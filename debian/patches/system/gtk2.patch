@@ -1,6 +1,6 @@
-description: restore support for building against gtk2
-author: Michael Gilbert <mgilbert@debian.org>
-origin: chromium 69 authors
+Subject: restore support for building against gtk2
+From: Michael Gilbert <mgilbert@debian.org>
+Origin: chromium 69 authors
 
 --- a/build/config/linux/atk/BUILD.gn
 +++ b/build/config/linux/atk/BUILD.gn

@@ -1,5 +1,5 @@
-description: gcc6 cannot automatically resolve these overloads, tell it what to do
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: gcc6 cannot automatically resolve these overloads, tell it what to do
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/net/third_party/quic/platform/impl/quic_flags_impl.cc
 +++ b/net/third_party/quic/platform/impl/quic_flags_impl.cc

@@ -1,5 +1,5 @@
-description: use system nspr library
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: use system nspr library
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/base/time/pr_time_unittest.cc
 +++ b/base/time/pr_time_unittest.cc

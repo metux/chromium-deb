@@ -1,5 +1,5 @@
-description: gcc 6 does not provide a typedef for atomic<uint32_t>
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: gcc 6 does not provide a typedef for atomic<uint32_t>
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/third_party/blink/renderer/platform/heap/gc_info.cc
 +++ b/third_party/blink/renderer/platform/heap/gc_info.cc

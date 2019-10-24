@@ -1,5 +1,5 @@
-description: maintain compatibility with vpx 1.6
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: maintain compatibility with vpx 1.6
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_decoder.cc
 +++ b/third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_decoder.cc

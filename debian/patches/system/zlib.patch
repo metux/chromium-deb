@@ -1,5 +1,5 @@
-description: use system zlib library instead of embedded lzma in courgette
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: use system zlib library instead of embedded lzma in courgette
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/courgette/BUILD.gn
 +++ b/courgette/BUILD.gn

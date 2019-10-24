@@ -1,6 +1,7 @@
-description: fix buildflag used to enable widevine
-origin: arch linux chromium package
-bug: http://bugs.debian.org/916058
+Subject: fix buildflag used to enable widevine
+Origin: arch linux chromium package
+Bug-Debian: http://bugs.debian.org/916058
+From: unknown <none@none.org>
 
 --- a/chrome/common/chrome_content_client.cc
 +++ b/chrome/common/chrome_content_client.cc

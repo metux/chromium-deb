@@ -1,5 +1,5 @@
-description: map insert doesn't support initializer list arguments in gcc 6
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: map insert doesn't support initializer list arguments in gcc 6
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/services/image_annotation/annotator.cc
 +++ b/services/image_annotation/annotator.cc

@@ -1,5 +1,5 @@
-description: gcc 6 does not support designated initializers
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: gcc 6 does not support designated initializers
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/base/task/sequence_manager/sequence_manager.h
 +++ b/base/task/sequence_manager/sequence_manager.h

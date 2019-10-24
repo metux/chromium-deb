@@ -1,5 +1,5 @@
-description: use inspector_protocol from top level third_party dir
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: use inspector_protocol from top level third_party dir
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/v8/src/inspector/BUILD.gn
 +++ b/v8/src/inspector/BUILD.gn

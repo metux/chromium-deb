@@ -1,6 +1,6 @@
-Description: manpage updates/fixes
+Subject: manpage updates/fixes
 Forwarded: http://code.google.com/p/chromium/issues/detail?id=73591
-Author: Daniel Echeverry <epsilon77@gmail.com>
+From: Daniel Echeverry <epsilon77@gmail.com>
 
 --- a/chrome/app/resources/manpage.1.in
 +++ b/chrome/app/resources/manpage.1.in

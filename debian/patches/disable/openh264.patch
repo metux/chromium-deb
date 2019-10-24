@@ -1,5 +1,5 @@
-description: disable support for openh264, will be added later
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: disable support for openh264, will be added later
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/third_party/webrtc/webrtc.gni
 +++ b/third_party/webrtc/webrtc.gni

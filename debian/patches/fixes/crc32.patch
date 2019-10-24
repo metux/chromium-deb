@@ -1,5 +1,5 @@
-description: fix inverted check
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: fix inverted check
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/third_party/crc32c/src/include/crc32c/crc32c.h
 +++ b/third_party/crc32c/src/include/crc32c/crc32c.h

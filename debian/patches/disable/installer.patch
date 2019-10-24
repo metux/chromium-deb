@@ -1,5 +1,5 @@
-description: avoid building chromium's installer, which is unused in debian
-author: Michael Gilbert <mgilbert@debian.org>
+Subject: avoid building chromium's installer, which is unused in debian
+From: Michael Gilbert <mgilbert@debian.org>
 
 --- a/BUILD.gn
 +++ b/BUILD.gn
