@@ -16,22 +16,22 @@ namespace vr {
 // requested size.
 class SampleQueue {
  public:
-  explicit SampleQueue(size_t window_size);
+  explicit SampleQueue(std::size_t window_size);
   ~SampleQueue();
 
   int64_t GetSum() const { return sum_; }
 
   void AddSample(int64_t value);
 
-  size_t GetCount() const { return samples_.size(); }
+  std::size_t GetCount() const { return samples_.size(); }
 
   // Get sliding window size for tests.
-  size_t GetWindowSize() const { return window_size_; }
+  std::size_t GetWindowSize() const { return window_size_; }
 
  private:
   int64_t sum_ = 0;
-  size_t current_index_ = 0;
-  size_t window_size_;
+  std::size_t current_index_ = 0;
+  std::size_t window_size_;
   std::vector<int64_t> samples_;
   DISALLOW_COPY_AND_ASSIGN(SampleQueue);
 };

@@ -8,7 +8,7 @@
 
 namespace vr {
 
-SampleQueue::SampleQueue(size_t window_size) : window_size_(window_size) {
+SampleQueue::SampleQueue(std::size_t window_size) : window_size_(window_size) {
   samples_.reserve(window_size);
 }
 
