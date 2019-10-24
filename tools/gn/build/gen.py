@@ -324,6 +324,7 @@ def WriteGNNinja(path, platform, host, options):
       ])
       # Additional system libraries that are used.
       libs.append('-lnspr4')
+      libs.append('-levent')
       # This is needed by libc++.
       libs.append('-ldl')
     elif platform.is_darwin():

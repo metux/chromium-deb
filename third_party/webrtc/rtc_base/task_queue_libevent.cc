@@ -22,7 +22,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "base/third_party/libevent/event.h"
+#include <event.h>
 #include "rtc_base/checks.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/logging.h"
