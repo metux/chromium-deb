@@ -1,0 +1,13 @@
+From: unknown <none@none.org>
+Subject: crashpad: fix missing include
+
+--- a/third_party/crashpad/crashpad/snapshot/linux/cpu_context_linux.cc
++++ b/third_party/crashpad/crashpad/snapshot/linux/cpu_context_linux.cc
+@@ -16,6 +16,7 @@
+ 
+ #include <stddef.h>
+ #include <string.h>
++#include <limits>
+ 
+ #include "base/logging.h"
+ 
